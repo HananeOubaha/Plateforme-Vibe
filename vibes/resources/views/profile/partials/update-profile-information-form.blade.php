@@ -46,6 +46,27 @@
                 </div>
             @endif
         </div>
+        <!-- Bio -->
+<div>
+    <x-input-label for="bio" :value="__('Bio')" />
+    <textarea id="bio" name="bio" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" rows="3">{{ old('bio', $user->bio) }}</textarea>
+    <x-input-error class="mt-2" :messages="$errors->get('bio')" />
+</div>
+
+<!-- Profile Photo -->
+<div>
+    <x-input-label for="profile_photo" :value="__('Profile Photo')" />
+    <input id="profile_photo" name="profile_photo" type="file" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+    <x-input-error class="mt-2" :messages="$errors->get('profile_photo')" />
+
+    <!-- Affichage de la photo actuelle -->
+    @if ($user->profile_photo)
+        <div class="mt-2">
+            <img src="{{ asset('storage/' . $user->profile_photo) }}" alt="Profile Photo" class="w-20 h-20 rounded-full object-cover">
+        </div>
+    @endif
+</div>
+
 
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
