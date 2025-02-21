@@ -24,17 +24,30 @@
                              alt="Photo de profil">
 
                         <!-- Informations utilisateur -->
-                        <h3 class="mt-4 text-2xl font-semibold text-gray-900">{{ $user->name }}</h3>
+                        <h3 class="mt-4 text-2xl font-semibold text-gray-900">
+                            {{ $user->pseudo ?? $user->name }} <!-- Affichage du pseudo si disponible -->
+                        </h3>
                         <p class="text-gray-600">{{ $user->email }}</p>
+
+                        <!-- Bio -->
                         <p class="mt-2 text-gray-700 text-center max-w-lg">
-                            {{ $user->bio ?? "Aucune bio disponible." }}
+                            {{ $user->bio ? $user->bio : "Aucune bio disponible." }}
                         </p>
 
-                        <!-- Bouton d'édition -->
-                        <a href="{{ route('profile.edit') }}"
-                           class="mt-4 px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition">
-                            Modifier le profil
-                        </a>
+                        <!-- Boutons d'action -->
+                        <div class="mt-4 flex space-x-4">
+                            <a href="{{ route('profile.edit') }}"
+                               class="px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition">
+                                Modifier le profil
+                            </a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit"
+                                        class="px-4 py-2 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 transition">
+                                    Déconnexion
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

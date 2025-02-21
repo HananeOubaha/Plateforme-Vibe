@@ -7,8 +7,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
@@ -27,24 +27,35 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $user = $request->user();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        // Mise à jour des informations du profil
+        $user->fill([
+            'name' => $request->input('name'),
+            'pseudo' => $request->input('pseudo'), // Ajout du pseudo
+            'email' => $request->input('email'),
+            'bio' => $request->input('bio'), // Mise à jour de la bio
+        ]);
+
+        // Réinitialisation de la vérification email si modifié
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
         }
-        // Gestion de l'upload de la photo
-    if ($request->hasFile('profile_photo')) {
-        // Supprime l'ancienne photo si elle existe
-        if ($request->user()->profile_photo) {
-            Storage::delete('public/' . $request->user()->profile_photo);
+
+        // Gestion de l'upload de la photo de profil
+        if ($request->hasFile('profile_photo')) {
+            // Supprimer l'ancienne photo si elle existe
+            if ($user->profile_photo && Storage::exists('public/' . $user->profile_photo)) {
+                Storage::delete('public/' . $user->profile_photo);
+            }
+
+            // Stocker la nouvelle image et mettre à jour le champ
+            $path = $request->file('profile_photo')->store('profile_photos', 'public');
+            $user->profile_photo = $path;
         }
 
-        // Stocke la nouvelle image et met à jour le champ
-        $path = $request->file('profile_photo')->store('profile_photos', 'public');
-        $request->user()->profile_photo = $path;
-    }
-
-        $request->user()->save();
+        // Sauvegarde des changements
+        $user->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
@@ -59,6 +70,11 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
+
+        // Supprimer l'image de profil de l'utilisateur avant suppression du compte
+        if ($user->profile_photo && Storage::exists('public/' . $user->profile_photo)) {
+            Storage::delete('public/' . $user->profile_photo);
+        }
 
         Auth::logout();
 
