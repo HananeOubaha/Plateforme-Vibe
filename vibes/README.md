@@ -64,3 +64,83 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# Vibe - Plateforme de Réseau Social Sécurisé
+
+## Description
+Vibe est une jeune startup qui souhaite offrir une plateforme simple et efficace permettant aux utilisateurs de s'inscrire, personnaliser leur profil et retrouver facilement d'autres membres grâce à un système de recherche performant.
+
+## Fonctionnalités Principales
+
+### 1. Authentification et Gestion des Utilisateurs
+- 🔒 Inscription et connexion sécurisées.
+- 🔄 Gestion de la récupération de mot de passe.
+- ✅ Vérification des emails (optionnelle mais recommandée).
+- ⚙️ Implémentation de Laravel Breeze ou Jetstream pour l'authentification.
+
+### 2. Gestion du Profil Utilisateur
+- ✏️ Modification des informations personnelles : pseudo unique, nom, prénom, email (après vérification), bio et photo de profil.
+- 🔑 Changement du mot de passe avec vérification de l'ancien mot de passe.
+
+### 3. Recherche d'Utilisateurs
+- 🔎 Système de recherche performant permettant de trouver un utilisateur par pseudo ou email.
+
+### 4. Fonctionnalités Bonus
+- 🤝 Ajout d'autres utilisateurs à une liste d'amis.
+- 📩 Notifications en temps réel pour les demandes d'amitié.
+- ✔️ Accepter ou refuser une demande d'amitié.
+
+## Technologies Utilisées
+- **Backend** : Laravel (avec Laravel Breeze ou Jetstream pour l'authentification)
+- **Frontend** : Blade, Vue.js ou React (au choix)
+- **Base de données** : MySQL ou PostgreSQL
+- **Sécurité** : Laravel Sanctum ou Passport pour la gestion des tokens d'authentification
+- **Notifications** : Laravel Echo + Pusher
+
+## Installation
+
+### Prérequis
+Assurez-vous d'avoir les éléments suivants installés sur votre machine :
+- PHP >= 8.0
+- Composer
+- Node.js & npm
+- MySQL ou PostgreSQL
+
+### Étapes d'installation
+```sh
+# Cloner le projet
+git clone https://github.com/votre-repo/vibe.git
+cd vibe
+
+# Installer les dépendances backend
+composer install
+
+# Configurer l'environnement
+cp .env.example .env
+# Modifier le fichier .env avec vos informations de base de données
+
+# Générer la clé d'application
+php artisan key:generate
+
+# Migrer la base de données
+php artisan migrate
+
+# Installer les dépendances frontend
+npm install && npm run dev
+
+# Lancer le serveur
+php artisan serve
+```
+
+## Utilisation
+- Accédez à l'application via `http://127.0.0.1:8000`
+- Inscrivez-vous et explorez les fonctionnalités
+
+## Contribution
+Les contributions sont les bienvenues ! Veuillez suivre les étapes suivantes :
+1. **Forker** le projet
+2. **Créer une nouvelle branche** (`feature/nouvelle-fonctionnalité`)
+3. **Effectuer les modifications**
+4. **Soumettre une pull request**
+
+## Licence
+Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
