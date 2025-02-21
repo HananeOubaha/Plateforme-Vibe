@@ -16,7 +16,7 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+            @include('layouts.navigation') <!-- Inclure la navigation -->
 
             <!-- Page Heading -->
             @if (isset($header))
@@ -29,7 +29,7 @@
 
             <!-- Page Content -->
             <main>
-                {{ $slot }}
+                {{ $slot }} <!-- Affichage du contenu dynamique passé dans le slot -->
             </main>
         </div>
     </body>
