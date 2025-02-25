@@ -27,6 +27,7 @@
                         <th class="border px-4 py-2">Pseudo</th>
                         <th class="border px-4 py-2">Email</th>
                         <th class="border px-4 py-2">Nom</th>
+                        <th class="border px-4 py-2">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,10 +40,20 @@
                             <td class="border px-4 py-2">{{ $user->pseudo }}</td>
                             <td class="border px-4 py-2">{{ $user->email }}</td>
                             <td class="border px-4 py-2">{{ $user->name }}</td>
+                            <td class="border px-4 py-2">
+                                @if(Auth::id() !== $user->id)
+                                    <form method="POST" action="{{ route('friend.request', $user->id) }}">
+                                        @csrf
+                                        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">
+                                            Ajouter Ami
+                                        </button>
+                                    </form>
+                                @endif
+                            </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="text-center p-4">Aucun utilisateur trouvé</td>
+                            <td colspan="5" class="text-center p-4">Aucun utilisateur trouvé</td>
                         </tr>
                     @endforelse
                 </tbody>

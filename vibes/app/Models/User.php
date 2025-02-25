@@ -45,4 +45,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function sentFriendRequests()
+{
+    return $this->hasMany(Friendship::class, 'sender_id');
+}
+
+public function receivedFriendRequests()
+{
+    return $this->hasMany(Friendship::class, 'receiver_id');
+}
+
+public function friends()
+{
+    return $this->belongsToMany(User::class, 'friendships', 'sender_id', 'receiver_id')
+                ->wherePivot('status', 'accepted')
+                ->withTimestamps();
+}
+
 }
