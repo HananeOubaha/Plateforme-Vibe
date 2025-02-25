@@ -22,7 +22,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard',['user' => Auth::user()]);
+    return view('dashboard', ['user' => Auth::user()]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
@@ -31,9 +31,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
     Route::post('/friend-request/{receiverId}', [FriendshipController::class, 'sendRequest'])->name('friend.request');
-    Route::post('/friend-request/accept/{id}', [FriendshipController::class, 'acceptRequest'])->name('friend.accept');
-    Route::post('/friend-request/decline/{id}', [FriendshipController::class, 'declineRequest'])->name('friend.decline');
+    Route::get('/friend-requests', [FriendshipController::class, 'receivedRequests'])->name('friend.requests');
+    Route::post('/friend-requests/{id}/accept', [FriendshipController::class, 'acceptRequest'])->name('friend.accept');
+    Route::post('/friend-requests/{id}/decline', [FriendshipController::class, 'declineRequest'])->name('friend.decline');
+    Route::get('/friends', [FriendshipController::class, 'friendsList'])->name('friends.list');
 });
 
 require __DIR__.'/auth.php';

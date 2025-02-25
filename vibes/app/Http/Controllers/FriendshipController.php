@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Friendship;
@@ -12,12 +13,10 @@ class FriendshipController extends Controller
     {
         $receiver = User::findOrFail($receiverId);
 
-        // Vérifier si une demande existe déjà
         if (Friendship::where('sender_id', Auth::id())->where('receiver_id', $receiverId)->exists()) {
             return back()->with('error', 'Demande déjà envoyée.');
         }
 
-        // Créer une demande d'ami
         Friendship::create([
             'sender_id' => Auth::id(),
             'receiver_id' => $receiverId,
@@ -26,6 +25,18 @@ class FriendshipController extends Controller
 
         return back()->with('success', 'Demande d\'ami envoyée.');
     }
+
+    public function receivedRequests()
+    {
+        $requests = Friendship::where('receiver_id', Auth::id())
+                              ->where('status', 'pending')
+                              ->with('sender') // Vérifier que la relation existe
+                              ->get();
+    
+        return view('friend-requests', compact('requests')); 
+    }
+    
+    
 
     public function acceptRequest($id)
     {
@@ -47,5 +58,17 @@ class FriendshipController extends Controller
 
         $friendship->delete();
         return back()->with('success', 'Demande d\'ami refusée.');
+    }
+
+    public function friendsList()
+    {
+        $friends = Friendship::where(function ($query) {
+            $query->where('sender_id', Auth::id())->orWhere('receiver_id', Auth::id());
+        })
+        ->where('status', 'accepted')
+        ->with(['sender', 'receiver'])
+        ->get();
+
+        return view('friends.list', compact('friends'));
     }
 }
