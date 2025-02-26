@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\FriendshipController;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/friend-requests/{id}/accept', [FriendshipController::class, 'acceptRequest'])->name('friend.accept');
     Route::post('/friend-requests/{id}/decline', [FriendshipController::class, 'declineRequest'])->name('friend.decline');
     Route::get('/friends', [FriendshipController::class, 'friendsList'])->name('friends.list');
+    Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+    Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+    Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+    Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
+    Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
+
 });
 
 require __DIR__.'/auth.php';

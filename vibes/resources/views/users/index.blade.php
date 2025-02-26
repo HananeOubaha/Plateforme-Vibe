@@ -31,7 +31,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($users as $user)
+                <tbody>
+                @if(request('search'))
+                @forelse ($users as $user)
+
                         <tr class="text-center">
                             <td class="border px-4 py-2">
                                 <img src="{{ $user->profile_photo ? asset('storage/' . $user->profile_photo) : asset('default-avatar.png') }}"
@@ -56,6 +59,7 @@
                             <td colspan="5" class="text-center p-4">Aucun utilisateur trouvé</td>
                         </tr>
                     @endforelse
+                    @endif
                 </tbody>
             </table>
         </div>
