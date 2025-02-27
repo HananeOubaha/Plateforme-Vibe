@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\FriendshipController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LikeController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +28,8 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard', ['user' => Auth::user()]);
 })->middleware(['auth', 'verified'])->name('dashboard');
-
+Route::post('/posts/{post}/like', [LikeController::class, 'store'])->name('posts.like');
+Route::post('/posts/{post}/comment', [CommentController::class, 'store'])->name('posts.comment');
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');

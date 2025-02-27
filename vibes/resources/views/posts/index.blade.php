@@ -39,20 +39,46 @@
                     <img src="{{ asset('storage/' . $post->image) }}" class="w-full mt-2 rounded">
                 @endif
 
-                @if(Auth::id() === $post->user_id)
-                    <form action="{{ route('posts.destroy', $post->id) }}" method="POST" class="mt-2">
+                <!-- Bouton Like -->
+                <div class="mt-2 flex items-center space-x-2">
+                    <form method="POST" action="{{ route('posts.like', $post) }}">
                         @csrf
-                        @method('DELETE')
-                        <button type="submit" class="text-red-500">Supprimer</button>
+                        <button type="submit" class="text-blue-500">
+                            <i class="fa fa-thumbs-up"></i> J'aime ({{ $post->likes->count() }})
+                        </button>
                     </form>
-                @endif
-                @if (Auth::user()->id === $post->user_id)
-    <a href="{{ route('posts.edit', $post) }}"
-       class="bg-yellow-500 text-white px-3 py-1 rounded text-sm">
-       Edit
-    </a>
-@endif
+                </div>
 
+                <!-- Section des commentaires -->
+                <div class="mt-4">
+                    <h3 class="text-lg font-semibold">Commentaires ({{ $post->comments->count() }})</h3>
+                    
+                    <!-- Liste des commentaires -->
+                    @foreach ($post->comments as $comment)
+                        <div class="border-t mt-2 pt-2">
+                            <p><strong>{{ $comment->user->name }}</strong>: {{ $comment->content }}</p>
+                        </div>
+                    @endforeach
+
+                    <!-- Ajouter un commentaire -->
+                    <form method="POST" action="{{ route('posts.comment', $post) }}" class="mt-2">
+                        @csrf
+                        <input type="text" name="content" class="border p-2 w-full rounded" placeholder="Ajouter un commentaire..." required>
+                        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded mt-2">Commenter</button>
+                    </form>
+                </div>
+
+                <!-- Boutons Edit et Supprimer -->
+                @if(Auth::id() === $post->user_id)
+                    <div class="flex space-x-2 mt-2">
+                        <a href="{{ route('posts.edit', $post) }}" class="bg-yellow-500 text-white px-3 py-1 rounded text-sm">Edit</a>
+                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-500">Supprimer</button>
+                        </form>
+                    </div>
+                @endif
             </div>
         @endforeach
     </div>
