@@ -61,5 +61,16 @@ public function friends()
                 ->wherePivot('status', 'accepted')
                 ->withTimestamps();
 }
+    public function posts() {
+        return $this->hasMany(Post::class);
+    }
 
+    public function likes() {
+        return $this->hasMany(Like::class);
+    }
+
+    public function comments() {
+        return $this->hasMany(Comment::class);
+    }
 }
+

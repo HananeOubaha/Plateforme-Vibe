@@ -30,6 +30,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 Route::post('/posts/{post}/like', [LikeController::class, 'store'])->name('posts.like');
 Route::post('/posts/{post}/comment', [CommentController::class, 'store'])->name('posts.comment');
+Route::post('/post/{post}/comment', [CommentController::class, 'store'])->name('comment.store');
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
@@ -38,6 +39,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::post('/post/{post}/like', [LikeController::class, 'store'])->name('like.store');
+    Route::delete('/post/{post}/like', [LikeController::class, 'destroy'])->name('like.destroy');
     Route::post('/friend-request/{receiverId}', [FriendshipController::class, 'sendRequest'])->name('friend.request');
     Route::get('/friend-requests', [FriendshipController::class, 'receivedRequests'])->name('friend.requests');
     Route::post('/friend-requests/{id}/accept', [FriendshipController::class, 'acceptRequest'])->name('friend.accept');
