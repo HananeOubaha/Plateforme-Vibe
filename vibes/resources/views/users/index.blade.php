@@ -52,6 +52,11 @@
                                         </button>
                                     </form>
                                 @endif
+                                <a href="{{ route('users.show', $user->id) }}" 
+       class="bg-blue-500 text-white px-4 py-2 rounded inline-block mt-2">
+        Voir Profil
+    </a>
+</td>
                             </td>
                         </tr>
                     @empty

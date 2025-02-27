@@ -35,7 +35,7 @@
 
                         <!-- Informations utilisateur -->
                         <h3 class="mt-4 text-2xl font-semibold text-gray-900">
-                            {{ $user->pseudo ?? $user->name }} <!-- Affichage du pseudo si disponible -->
+                            {{ $user->pseudo ?? $user->name }}
                         </h3>
                         <p class="text-gray-600">{{ $user->email }}</p>
 
@@ -59,6 +59,26 @@
                             </form>
                         </div>
                     </div>
+
+                    <!-- Liste des publications de l'utilisateur -->
+                    <div class="mt-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Mes publications</h3>
+
+                        @if ($posts->isEmpty())
+                            <p class="text-gray-500">Aucune publication disponible.</p>
+                        @else
+                            @foreach ($posts as $post)
+                                <div class="bg-gray-50 p-4 rounded-lg shadow mb-4">
+                                    @if ($post->image)
+                                        <img src="{{ asset('storage/' . $post->image) }}" class="w-full h-48 object-cover rounded-md mb-2">
+                                    @endif
+                                    <p class="text-gray-700">{{ $post->content }}</p>
+                                    <p class="text-gray-500 text-sm mt-2">Publié le {{ $post->created_at->format('d M Y') }}</p>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+
                 </div>
             </div>
         </div>
