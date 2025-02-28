@@ -1,3 +1,73 @@
+
+# Vibe - Extension Sociale
+
+## Description
+Vibe évolue en un réseau social dynamique permettant aux utilisateurs d'interagir via des publications, l'ajout d'amis et un fil d'actualités interactif.
+
+## Fonctionnalités
+
+### 1. Ajout d’Amis
+- Envoi de demandes d’amis.
+- Acceptation ou refus d’une demande d’ami.
+- Affichage de la liste des amis.
+
+### 2. Système de Publications
+- Possibilité de publier du texte et des images.
+- Modification et suppression de posts.
+- Affichage des publications triées par date.
+
+### 3. Fil d’Actualités
+- Affichage des publications des amis.
+- Tri des posts du plus récent au plus ancien.
+
+### 4. Consultation des Profils
+- Accès au profil d’un utilisateur.
+- Affichage des publications et interactions d’un utilisateur.
+
+### 5. Likes et Commentaires
+- Ajout de likes aux posts.
+- Affichage du nombre total de likes sur chaque post.
+- Ajout et affichage des commentaires sous chaque post.
+
+### 6. Fonctionnalités Avancées
+- Notifications en temps réel pour les demandes d’amis et les interactions sur les posts.
+- Ajout d’un système de partage pour diffuser les publications.
+- Implémentation d’une pagination infinie pour le fil d’actualités.
+
+## Installation
+
+1. **Cloner le projet**
+   ```bash
+   git clone https://github.com/nom-utilisateur/Vibe-Social.git
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
